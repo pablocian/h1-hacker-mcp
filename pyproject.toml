@@ -1,10 +1,23 @@
 [project]
 name = "h1-hacker-mcp"
 version = "0.1.0"
-description = "Add your description here"
+description = "Read-only MCP server for the HackerOne Hacker API."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "httpx>=0.28.1",
     "mcp>=2.3.0",
 ]
+
+[project.scripts]
+h1-hacker-mcp = "h1_hacker_mcp.server:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
