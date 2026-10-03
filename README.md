@@ -31,3 +31,29 @@ Add this to your MCP config. The process needs the two environment variables abo
 ```bash
 uv run h1-hacker-mcp
 ```
+
+## Docker
+
+The image starts the same stdio server. Credentials are read from the environment at run time and are not copied into the image.
+
+```bash
+docker build -t h1-hacker-mcp .
+```
+
+Cursor must keep stdin open and must not allocate a TTY, because a TTY corrupts the MCP stream. `-e NAME` forwards each variable from the environment that launches Cursor.
+
+```json
+{
+  "mcpServers": {
+    "h1-hacker": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "HACKERONE_API_IDENTIFIER",
+        "-e", "HACKERONE_API_TOKEN",
+        "h1-hacker-mcp"
+      ]
+    }
+  }
+}
+```
